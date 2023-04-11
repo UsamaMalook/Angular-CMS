@@ -24,5 +24,4 @@ const Course = sequelize.define("course", {
     type: Sequelize.BOOLEAN,
   },
 });
-
 module.exports = Course;
