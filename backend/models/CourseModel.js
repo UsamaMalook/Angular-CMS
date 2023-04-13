@@ -1,9 +1,11 @@
 const Sequelize = require("sequelize");
 
-const sequelize = require("../config/database");
+const db = require("../config/database");
 
-const Course = sequelize.define("course", {
-  id: {
+const sequelize = db.sequelize;
+
+const Course = sequelize.define("courses", {
+  course_id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
@@ -24,4 +26,5 @@ const Course = sequelize.define("course", {
     type: Sequelize.BOOLEAN,
   },
 });
+
 module.exports = Course;

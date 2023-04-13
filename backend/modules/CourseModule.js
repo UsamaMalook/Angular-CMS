@@ -1,29 +1,20 @@
 const Course = require("../models/CourseModel");
 
 const getAllcourses = async () => {
-  const courses = await Course.findAll();
-  return json(courses);
+  return Course.findAll();
 };
 
-const addCourse = async (name, field, creditHours, lab) => {
-  let msg = "";
-
-  await Course.create({
+const addCourse = (name, field, creditHours, lab) => {
+  return Course.create({
     name: name,
     field: field,
     creditHours: creditHours,
     lab: lab,
-  })
-    .then((res) => (msg = "Course created successfully."))
-    .catch((err) => (msg = err));
-
-  return msg;
+  });
 };
 
-const updateCourse = async (name, field, creditHours, lab) => {
-  let msg = "";
-
-  await Course.update(
+const updateCourse = async (name, field, creditHours, lab, id) => {
+  return Course.update(
     {
       name: name,
       field: field,
@@ -32,13 +23,9 @@ const updateCourse = async (name, field, creditHours, lab) => {
     },
     {
       where: {
-        name: name,
+        course_id: id,
       },
     }
-  )
-    .then((res) => (msg = "Course updated successfully."))
-    .catch((err) => (msg = err));
-
-  return msg;
+  );
 };
 module.exports = { getAllcourses, addCourse, updateCourse };

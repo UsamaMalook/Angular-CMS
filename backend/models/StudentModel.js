@@ -1,9 +1,11 @@
 const Sequelize = require("sequelize");
 
-const sequelize = require("../config/database");
+const db = require("../config/database");
 
-const Student = sequelize.define("student", {
-  id: {
+const sequelize = db.sequelize;
+
+const Student = sequelize.define("students", {
+  student_id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
@@ -27,5 +29,12 @@ const Student = sequelize.define("student", {
     type: Sequelize.STRING,
   },
 });
+Student.assocaite = function (models) {
+  Student.belongsToMany(models.Course, {
+    through: "enrollments",
+    as: "students",
+    foriegnKey: "student_id",
+  });
+};
 
 module.exports = Student;

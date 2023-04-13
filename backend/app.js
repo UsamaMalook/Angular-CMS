@@ -1,19 +1,24 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
-// create application/json parser
-var jsonParser = bodyParser.json();
-
-// create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
-
-const sequelize = require("./config/database");
-
-// TODO: define a function to register models
-const CourseModel = require("./models/CourseModel");
-const StudentModel = require("./models/StudentModel");
+const cors = require("cors");
 
 const app = express();
+
+// getting database instance
+const db = require("./config/database");
+
+const sequelize = db.sequelize;
+
+var corsOptions = {
+  origin: "http://localhost:3000",
+};
+app.use(cors(corsOptions));
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 
 sequelize
   .authenticate()
@@ -26,7 +31,8 @@ sequelize
   .catch((err) => console.log(err));
 
 // routes
-app.use("/api/course", require("./controllers/CourseController.js"));
+app.use("/api/courses", require("./controllers/CourseController.js"));
+app.use("/api/students", require("./controllers/StudentController.js"));
 
 // starting the server
 const port = process.env.PORT || 3000;
