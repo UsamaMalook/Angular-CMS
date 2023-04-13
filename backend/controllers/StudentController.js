@@ -9,14 +9,12 @@ const router = express.Router();
 // get functions from modules
 
 router.get("/", async (req, res) => {
-  let students;
   try {
-    students = await getAllStudents();
+    const students = await getAllStudents({ ...req.query });
+    res.send({ students: students });
   } catch (err) {
     res.status(404).send(err);
   }
-
-  res.send({ students: students });
 });
 
 router.post("/addStudent", (req, res, next) => {

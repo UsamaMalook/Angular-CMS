@@ -1,7 +1,27 @@
+const { Op } = require("sequelize");
 const Course = require("../models/CourseModel");
 
-const getAllcourses = async () => {
-  return Course.findAll();
+const getAllcourses = async (queryParams) => {
+  return Course.findAll({
+    where: {
+      [Op.and]: [
+        {
+          ...(queryParams.name && {
+            name: { [Op.like]: `%${queryParams.name}%` },
+          }),
+          ...(queryParams.field && {
+            field: { [Op.like]: `%${queryParams.field}%` },
+          }),
+          ...(queryParams.credit && {
+            creditHours: parseInt(queryParams.credit),
+          }),
+          ...(queryParams.lab && {
+            lab: parseInt(queryParams.lab),
+          }),
+        },
+      ],
+    },
+  });
 };
 
 const addCourse = (name, field, creditHours, lab) => {
