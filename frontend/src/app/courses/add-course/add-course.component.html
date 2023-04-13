@@ -1,0 +1,43 @@
+<div class="wrapper">
+  <div class="registration_form">
+    <!-- <!– Title –> -->
+    <div class="title">Add a Course</div>
+    <br />
+    <!-- <!– Form –> -->
+    <form [formGroup]="courseForm">
+      <div class="form_wrap">
+        <div class="input_grp">
+          <div class="input_wrap">
+            <label for="cname">Course Name</label>
+            <input type="text" id="cname" formControlName="name" />
+          </div>
+          <div class="input_wrap">
+            <label for="fields">Field</label>
+            <select name="fields" id="fields" formControlName="field">
+              <option value="science">Science</option>
+              <option value="history">History</option>
+              <option value="arts">Arts</option>
+            </select>
+          </div>
+          <div class="input_wrap">
+            <label for="creditHours">Credit Hours</label>
+            <input
+              type="number"
+              id="creditHours"
+              formControlName="creditHours"
+            />
+          </div>
+          <div class="input_wrap-lab">
+            <label for="lab">Lab</label>
+            <input type="checkbox" id="lab" formControlName="lab" />
+          </div>
+
+          <div class="”input_wrap”">
+            <input type="submit" value="Register Now" class="submit_btn" />
+          </div>
+        </div>
+      </div>
+    </form>
+    {{ courseForm }}
+  </div>
+</div>
