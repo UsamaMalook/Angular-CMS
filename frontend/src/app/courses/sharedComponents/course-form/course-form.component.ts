@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Course } from 'src/app/interfaces';
+import { CourseService } from '../../course.service';
 
 @Component({
   selector: 'app-course-form',
@@ -9,16 +11,21 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class CourseFormComponent implements OnInit {
   @Input()
   expectedProp!: {
+    id: number;
     title: string;
     btnTitle: string;
     modalId: string;
   };
 
   courseForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private course: CourseService
+  ) {}
 
   ngOnInit(): void {
     this.courseForm = this.formBuilder.group({
+      course_id: -1,
       name: '',
       field: '',
       creditHours: 0,
@@ -29,6 +36,16 @@ export class CourseFormComponent implements OnInit {
   @Output() dataEvent = new EventEmitter();
 
   toParent() {
-    this.dataEvent.emit(this.courseForm.value);
+    if (this.expectedProp.btnTitle == 'Edit') {
+      this.editCourse();
+    } else {
+      this.dataEvent.emit(this.courseForm.value);
+    }
+  }
+
+  editCourse() {
+    this.course.updateCourse(this.courseForm.value).subscribe((result) => {
+      console.log(result);
+    });
   }
 }

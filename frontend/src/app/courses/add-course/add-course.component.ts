@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CourseService } from '../course.service';
+import { Course } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-add-course',
@@ -9,6 +10,7 @@ import { CourseService } from '../course.service';
 })
 export class AddCourseComponent implements OnInit {
   formData = {
+    id: 0,
     title: 'Add Course',
     btnTitle: 'Add',
     modalId: 'addCourse',
@@ -18,29 +20,14 @@ export class AddCourseComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  recievedData!: {
-    name: string;
-    field: string;
-    creditHours: number;
-    lab: boolean;
-  };
+  recievedData!: Course;
 
-  recieveData($event: {
-    name: string;
-    field: string;
-    creditHours: number;
-    lab: boolean;
-  }) {
+  recieveData($event: Course) {
     this.recievedData = $event;
-    // console.log(this.recievedData);
-    // this.submitForm(this.recievedData)
-    console.log(this.recievedData);
-    console.log(
-      this.courseService
-        .addCourse({ ...this.recievedData })
-        .subscribe((result) => {
-          console.log(result);
-        })
-    );
+    this.courseService
+      .addCourse({ ...this.recievedData })
+      .subscribe((result) => {
+        console.log(result);
+      });
   }
 }

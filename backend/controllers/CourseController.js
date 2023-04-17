@@ -9,24 +9,23 @@ const router = express.Router();
 // get functions from modules
 
 router.get("/", async (req, res) => {
+  console.log("get");
   try {
     const courses = await getAllcourses({ ...req.query });
-    res.send({ courses: courses });
+    res.send(courses);
   } catch (err) {
     res.status(500).send(err);
   }
 });
 
 router.post("/addCourse", async (req, res, next) => {
-  console.log("here");
   const name = req.body.name;
   const field = req.body.field;
   const creditHours = req.body.creditHours;
   const lab = req.body.lab;
-  console.log(req.body);
 
   const result = await addCourse(name, field, creditHours, lab);
-  res.send({ result });
+  res.send(result);
 });
 
 router.put("/updateCourse", async (req, res, next) => {

@@ -10,12 +10,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>1</td>
-      <td>Programming Fundamentals</td>
-      <td>Science</td>
-      <td>3</td>
-      <td>Yes</td>
+    <tr *ngFor="let course of courses">
+      <td>{{ course.course_id }}</td>
+      <td>{{ course.name }}</td>
+      <td>{{ course.field }}</td>
+      <td>{{ course.creditHours }}</td>
+      <td>{{ course.lab }}</td>
       <td>
         <button
           class="btn btn-info"

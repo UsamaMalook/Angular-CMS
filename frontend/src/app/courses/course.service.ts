@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Course } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -7,13 +9,27 @@ import { Injectable } from '@angular/core';
 export class CourseService {
   constructor(private http: HttpClient) {}
 
-  addCourse(values: {
-    name: string;
-    field: string;
-    creditHours: number;
-    lab: boolean;
-  }) {
-    console.log(values);
-    return this.http.post('/api/courses/addCourse', JSON.stringify(values));
+  addCourse(values: Course) {
+    const headers = new HttpHeaders().set(
+      'Content-Type',
+      'application/json; charset=utf-8'
+    );
+    return this.http.post('/api/courses/addCourse', JSON.stringify(values), {
+      headers: headers,
+    });
+  }
+
+  updateCourse(values: Course) {
+    const headers = new HttpHeaders().set(
+      'Content-Type',
+      'application/json; charset=utf-8'
+    );
+    return this.http.put('/api/courses/updateCourse', JSON.stringify(values), {
+      headers: headers,
+    });
+  }
+
+  getAllCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>('/api/courses/');
   }
 }
