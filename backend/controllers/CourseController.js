@@ -18,10 +18,12 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/addCourse", async (req, res, next) => {
+  console.log("here");
   const name = req.body.name;
   const field = req.body.field;
   const creditHours = req.body.creditHours;
   const lab = req.body.lab;
+  console.log(req.body);
 
   const result = await addCourse(name, field, creditHours, lab);
   res.send({ result });

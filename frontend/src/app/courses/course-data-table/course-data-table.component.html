@@ -1,0 +1,33 @@
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Field</th>
+      <th scope="col">Credit Hours</th>
+      <th scope="col">Lab</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Programming Fundamentals</td>
+      <td>Science</td>
+      <td>3</td>
+      <td>Yes</td>
+      <td>
+        <button
+          class="btn btn-info"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#editCourse"
+        >
+          Edit
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<app-course-form [expectedProp]="formData"></app-course-form>
