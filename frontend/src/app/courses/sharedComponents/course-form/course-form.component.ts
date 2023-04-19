@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course } from 'src/app/interfaces';
 import { CourseService } from '../../course.service';
-
 @Component({
   selector: 'app-course-form',
   templateUrl: './course-form.component.html',
@@ -16,6 +15,8 @@ export class CourseFormComponent implements OnInit {
     btnTitle: string;
     modalId: string;
   };
+
+  @Input() courseId!: number;
 
   courseForm!: FormGroup;
   constructor(
@@ -44,8 +45,10 @@ export class CourseFormComponent implements OnInit {
   }
 
   editCourse() {
-    this.course.updateCourse(this.courseForm.value).subscribe((result) => {
-      console.log(result);
-    });
+    this.course
+      .updateCourse(this.courseForm.value, this.courseId)
+      .subscribe((result) => {
+        console.log(result);
+      });
   }
 }

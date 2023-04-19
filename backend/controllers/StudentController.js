@@ -3,6 +3,7 @@ const {
   getAllStudents,
   addStudent,
   updateStudent,
+  enrollStudent,
 } = require("../modules/StudentModule");
 const router = express.Router();
 
@@ -25,7 +26,20 @@ router.post("/addStudent", (req, res, next) => {
   const address = req.body.address;
 
   const result = addStudent(name, email, cellNumber, age, address);
-  res.send({ result });
+  res.send(result);
+});
+
+router.post("/:stdId/:courseId", async (req, res) => {
+  const { stdId, courseId } = req.params;
+
+  console.log(stdId, courseId);
+
+  try {
+    const result = await enrollStudent(stdId, courseId);
+    res.send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 router.put("/updateStudent", (req, res, next) => {

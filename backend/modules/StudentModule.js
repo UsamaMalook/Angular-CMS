@@ -1,8 +1,11 @@
 const { Op } = require("sequelize");
 const Student = require("../models/StudentModel");
+const Enrollment = require("../models/Enrollments");
+const Course = require("../models/CourseModel");
 
 const getAllStudents = async (queryParams) => {
   return Student.findAll({
+    include: [Course],
     where: {
       [Op.and]: [
         {
@@ -34,6 +37,13 @@ const addStudent = async (name, email, cellNumber, age, address) => {
   });
 };
 
+const enrollStudent = async (stdId, courseId) => {
+  return Enrollment.create({
+    courseCourseId: courseId,
+    studentStudentId: stdId,
+  });
+};
+
 const updateStudent = async (
   name,
   email,
@@ -57,4 +67,4 @@ const updateStudent = async (
     }
   );
 };
-module.exports = { getAllStudents, addStudent, updateStudent };
+module.exports = { getAllStudents, addStudent, updateStudent, enrollStudent };

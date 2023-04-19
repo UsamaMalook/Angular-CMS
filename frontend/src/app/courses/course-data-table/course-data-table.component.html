@@ -21,7 +21,9 @@
           class="btn btn-info"
           type="button"
           data-bs-toggle="modal"
+          [value]="course.course_id"
           data-bs-target="#editCourse"
+          (click)="editCourse(course.course_id)"
         >
           Edit
         </button>
@@ -30,4 +32,7 @@
   </tbody>
 </table>
 
-<app-course-form [expectedProp]="formData"></app-course-form>
+<app-course-form
+  [expectedProp]="formData"
+  [courseId]="selectedCourseId"
+></app-course-form>

@@ -19,11 +19,13 @@ export class CourseService {
     });
   }
 
-  updateCourse(values: Course) {
+  updateCourse(values: Course, courseId: number) {
     const headers = new HttpHeaders().set(
       'Content-Type',
       'application/json; charset=utf-8'
     );
+
+    values.course_id = courseId;
     return this.http.put('/api/courses/updateCourse', JSON.stringify(values), {
       headers: headers,
     });

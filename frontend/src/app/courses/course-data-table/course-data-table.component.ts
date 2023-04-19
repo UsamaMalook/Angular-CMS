@@ -18,6 +18,11 @@ export class CourseDataTableComponent implements OnInit {
 
   courses: Course[] = [];
 
+  selectedCourseId!: number;
+  editCourse(courseId: number) {
+    this.selectedCourseId = courseId;
+  }
+
   constructor(private courseService: CourseService) {}
 
   getCourses() {
@@ -27,6 +32,10 @@ export class CourseDataTableComponent implements OnInit {
       });
     });
   }
+
+  // editCourse(course) {
+  //   OpenModal
+  // }
 
   ngOnInit(): void {
     this.getCourses();

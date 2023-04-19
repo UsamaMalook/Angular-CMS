@@ -9,12 +9,11 @@ const router = express.Router();
 // get functions from modules
 
 router.get("/", async (req, res) => {
-  console.log("get");
   try {
     const courses = await getAllcourses({ ...req.query });
     res.send(courses);
   } catch (err) {
-    res.status(500).send(err);
+    res.send(err);
   }
 });
 
